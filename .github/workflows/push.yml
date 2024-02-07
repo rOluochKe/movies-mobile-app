@@ -1,0 +1,17 @@
+name: Check files on push
+
+on: push
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install modules
+        run: npm install
+      - name: run typecheck
+        run: npm run typecheck
+      - name: run prettier check for code styling
+        run: npm run prettier
+      - name: run eslint check for code errors
+        run: npm run lint
