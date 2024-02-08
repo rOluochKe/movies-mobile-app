@@ -1,22 +1,16 @@
-import {getGenres} from '../../services/movieService';
+import React from 'react';
+import {Pressable, Text} from 'react-native';
+import ScrollContainer from '../../containers/ScrollContainer';
+import styles from './Home.styles';
+import {HomeViewProps} from './Home.types';
 
-interface HomeProps {
-  chooseGenre: (genre: IGenre) => void;
-}
-
-const Home = (props: HomeProps) => {
-  const [genres, setGenres] = useState<IGenre[]>([]);
-
-  useEffect(() => {
-    setGenres(getGenres());
-  }, []);
-
+const HomeView = (props: HomeViewProps) => {
   return (
     <ScrollContainer>
-      <Header text="Movie Genres" />
-      {genres.map(genre => {
+      <Text style={styles.welcome}>Hello {props.name}</Text>
+      {props.genres.map(genre => {
         return (
-          <Pressable onPress={() => props.chooseGenre(genre)}>
+          <Pressable key={genre.name} onPress={() => props.onGenrePress(genre)}>
             <Text style={styles.genreTitle}>{genre.name}</Text>
           </Pressable>
         );
@@ -24,3 +18,5 @@ const Home = (props: HomeProps) => {
     </ScrollContainer>
   );
 };
+
+export default HomeView;
